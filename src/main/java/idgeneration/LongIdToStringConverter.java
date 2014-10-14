@@ -1,5 +1,5 @@
 package idgeneration;
 
 public interface LongIdToStringConverter {
-    String Convert(long value);
+    String convert(long value);
 }

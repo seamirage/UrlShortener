@@ -1,7 +1,7 @@
 package idgeneration;
 
 public interface Alphabet {
-        long GetCharacterCode(Character c);
-        char GetCorrespondingCharacter(int code);
+        long getCharacterCode(Character c);
+        char getCorrespondingCharacter(int code);
         int getCount();
 }

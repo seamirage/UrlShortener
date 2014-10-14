@@ -12,12 +12,12 @@ public class SymbolsWithNumbersAlphabetImpl implements Alphabet {
     }
 
     @Override
-    public long GetCharacterCode(Character c) {
+    public long getCharacterCode(Character c) {
         return alphabet.get(c);
     }
 
     @Override
-    public char GetCorrespondingCharacter(int remainder)
+    public char getCorrespondingCharacter(int remainder)
     {
         return alphas.charAt(remainder);
     }

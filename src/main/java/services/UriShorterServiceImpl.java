@@ -10,7 +10,7 @@ public class UriShorterServiceImpl implements UriShortenerService {
     @Override
     public String shortenAndStore(String originalUri, String userId) {
         long id = idGenerator.next();
-        String shortUri = longToStringConverter.Convert(id);
+        String shortUri = longToStringConverter.convert(id);
 
         return shortUri;
     }

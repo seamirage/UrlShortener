@@ -10,7 +10,7 @@ public class AlphabetBasedLongIdToStringConverterImpl implements LongIdToStringC
     }
 
     @Override
-    public String Convert(long value) {
+    public String convert(long value) {
         CheckIdOnPreconditions(value);
         int index = idSize - 1;
         char[] charArray = new char[idSize];
@@ -18,7 +18,7 @@ public class AlphabetBasedLongIdToStringConverterImpl implements LongIdToStringC
 
         while (index >= 0) {
             int remainder = (int)(currentNumber % alphabet.getCount());
-            charArray[index--] = alphabet.GetCorrespondingCharacter(remainder);
+            charArray[index--] = alphabet.getCorrespondingCharacter(remainder);
             currentNumber = currentNumber / alphabet.getCount();
         }
 

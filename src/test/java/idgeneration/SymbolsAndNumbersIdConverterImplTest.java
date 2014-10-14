@@ -13,33 +13,33 @@ public class SymbolsAndNumbersIdConverterImplTest {
     }
 
     @Test
-    public void ZeroConversionTest() {
+    public void zeroConversionTest() {
         AssertConversion("00000000", 0);
     }
 
     @Test
-    public void UsualNumbersConvertionTest() {
+    public void usualNumbersConvertionTest() {
         AssertConversion("00000CUt", 48043);
         AssertConversion("UKjrqjzq", 106823716192542L);
     }
 
     @Test
-    public void LastPossibleNumberConversionTest() {
+    public void lastPossibleNumberConversionTest() {
         AssertConversion("zzzzzzzz", 218340105584895L);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void WhenNumberIsGreaterThanCanBeConverted_ShouldThrowException() {
+    public void whenNumberIsGreaterThanCanBeConverted_ShouldThrowException() {
         AssertConversion("HUGE_NUM", 218340105584895L + 1);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void WhenNumberIsLessThanZero_ShouldThrowException() {
+    public void whenNumberIsLessThanZero_ShouldThrowException() {
         AssertConversion("LESS_THAN_ZERO", -12);
     }
 
     private void AssertConversion(String expected, long givenId) {
-        String converted = converter.Convert(givenId);
+        String converted = converter.convert(givenId);
         assertEquals(expected, converted);
     }
 
