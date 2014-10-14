@@ -1,7 +1,7 @@
 package services;
 
 import idgeneration.IdGenerator;
-import idgeneration.LongToStringConverter;
+import idgeneration.LongIdToStringConverter;
 import storages.ShortUriRepository;
 
 public class UriShorterServiceImpl implements UriShortenerService {
@@ -20,6 +20,6 @@ public class UriShorterServiceImpl implements UriShortenerService {
     }
 
     private IdGenerator idGenerator;
-    private LongToStringConverter longToStringConverter;
+    private LongIdToStringConverter longToStringConverter;
     private ShortUriRepository uriRepository;
 }
