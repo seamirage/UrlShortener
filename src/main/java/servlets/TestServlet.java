@@ -1,5 +1,8 @@
 package servlets;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,8 +19,8 @@ public class TestServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.print("Hello");
 
-     //   logger.debug("Received request from URI: " + requestUri);
+        logger.debug("Received request from URI: " + requestUri);
     }
 
-    //final Logger logger = LoggerFactory.getLogger(TestServlet.class);
+    final Logger logger = LoggerFactory.getLogger(TestServlet.class);
 }
