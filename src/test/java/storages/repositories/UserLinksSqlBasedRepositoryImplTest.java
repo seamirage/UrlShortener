@@ -1,26 +1,25 @@
-package storages;
+package storages.repositories;
 
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import storages.connection_sources.ConnectionSource;
-import storages.connection_sources.SimpleConnectionSourceImpl;
+import storages.dto.UserLink;
 import storages.sql_queries.GetAllUserLinksSqlQuery;
 
 import java.net.URISyntaxException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class UserLinksSqlBasedRepositoryImplTest {
+public class UserLinksSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest {
 
     @Before
     public void SetUp() throws SQLException {
-        connectionSource = new SimpleConnectionSourceImpl("username", "pwd", dbUrl);
+        super.SetUp();
         executeStatement("CREATE table UserLinks (" +
                 "    ShortLinkId char(8)," +
                 "    OriginalUri varchar(2048)," +
@@ -42,6 +41,8 @@ public class UserLinksSqlBasedRepositoryImplTest {
         assertEquals(1, allLinks.size());
         UserLink addedLink = allLinks.get(0);
         CheckUserLink(addedLink, originalUri, shortLinkId, 1);
+
+        System.out.print(UUID.randomUUID());
     }
 
     @Test
@@ -62,21 +63,14 @@ public class UserLinksSqlBasedRepositoryImplTest {
         assertNull(original);
     }
 
-    private void executeStatement(String statement) throws SQLException {
-        Connection conn = connectionSource.getConnection();
-        conn.createStatement().execute(statement);
-        conn.close();
-    }
-
     private void CheckUserLink(UserLink addedLink, String expectedOriginalUri1, String expectedShortLinkId, int expectedUserId) {
         assertEquals(expectedOriginalUri1, addedLink.getOriginalUri());
         assertEquals(expectedShortLinkId, addedLink.getShortLinkId());
         assertEquals(expectedUserId, addedLink.getUserId());
     }
 
-    private ConnectionSource connectionSource;
-    private UserLinksRepository repository;
-    private static final String dbUrl = "jdbc:h2:mem:TestDB;DB_CLOSE_DELAY=-1";
     private static final String originalUri = "https%3A%2F%2Fgoogle.ru%2Fsearch";
     private static final String shortLinkId = "short_01";
+    protected UserLinksRepository repository;
 }
+

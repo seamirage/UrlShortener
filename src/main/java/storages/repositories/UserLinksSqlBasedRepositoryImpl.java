@@ -1,6 +1,7 @@
-package storages;
+package storages.repositories;
 
 import storages.connection_sources.ConnectionSource;
+import storages.dto.UserLink;
 import storages.sql_commands.AddUserLinkSqlCommand;
 import storages.sql_queries.GetOriginalUriSqlQuery;
 

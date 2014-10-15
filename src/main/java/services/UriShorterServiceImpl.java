@@ -2,7 +2,7 @@ package services;
 
 import idgeneration.IdGenerator;
 import idgeneration.LongIdToStringConverter;
-import storages.UserLinksRepository;
+import storages.repositories.UserLinksRepository;
 
 import java.sql.SQLException;
 

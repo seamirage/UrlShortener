@@ -1,4 +1,6 @@
-package storages;
+package storages.repositories;
+
+import storages.dto.UserLink;
 
 import java.sql.SQLException;
 

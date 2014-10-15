@@ -1,7 +1,7 @@
 package storages.sql_queries;
 
-import storages.UserLink;
 import storages.connection_sources.ConnectionSource;
+import storages.dto.UserLink;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,4 +1,4 @@
-package storages;
+package storages.dto;
 
 public class UserLink {
     public UserLink(String originalUri, String shortLinkId, int userId) {

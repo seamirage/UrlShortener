@@ -28,3 +28,4 @@ public class GetOriginalUriSqlQuery extends SqlQuery<String> {
     private static final String GET_ORIGINAL_URI_STATEMENT = "SELECT OriginalUri FROM UserLinks WHERE ShortLinkId = ? ";
     private final String shortLinkId;
 }
+

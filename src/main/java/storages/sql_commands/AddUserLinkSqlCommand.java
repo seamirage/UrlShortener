@@ -1,10 +1,12 @@
 package storages.sql_commands;
 
-import storages.UserLink;
+import storages.dto.UserInfo;
+import storages.dto.UserLink;
 import storages.connection_sources.ConnectionSource;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class AddUserLinkSqlCommand extends SqlCommand {
     public AddUserLinkSqlCommand(ConnectionSource connectionSource, UserLink userLink) {
@@ -22,3 +24,4 @@ public class AddUserLinkSqlCommand extends SqlCommand {
     private static final String INSERT_LINK_STATEMENT = "INSERT INTO UserLinks VALUES (?, ?, ?) ";
     private UserLink userLink;
 }
+
