@@ -1,5 +1,6 @@
 package servlets;
 
+import com.google.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,14 +11,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 //@WebServlet("/TestServlet")
+@Singleton
 public class TestServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String requestUri = request.getRequestURI();
-        response.setContentType("text/html");
+        //request.
+        //response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        out.print("Hello");
 
         logger.debug("Received request from URI: " + requestUri);
     }
