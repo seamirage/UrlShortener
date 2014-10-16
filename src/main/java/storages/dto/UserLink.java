@@ -1,7 +1,7 @@
 package storages.dto;
 
 public class UserLink {
-    public UserLink(String originalUri, String shortLinkId, int userId) {
+    public UserLink(String originalUri, String shortLinkId, String userId) {
         this.originalUri = originalUri;
         this.shortLinkId = shortLinkId;
         this.userId = userId;
@@ -15,11 +15,11 @@ public class UserLink {
         return shortLinkId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
     private String originalUri;
     private String shortLinkId;
-    private int userId;
+    private String userId;
 }

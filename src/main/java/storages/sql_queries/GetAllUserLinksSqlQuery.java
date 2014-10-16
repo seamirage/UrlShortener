@@ -19,7 +19,7 @@ public class GetAllUserLinksSqlQuery extends SqlQuery<List<UserLink>> {
         while(resultSet.next()) {
             String shortLinkId = resultSet.getString("ShortLinkId");
             String originalUri = resultSet.getString("OriginalUri");
-            int userId = resultSet.getInt("UserId");
+            String userId = resultSet.getString("UserId");
             result.add(new UserLink(originalUri, shortLinkId, userId));
         }
 

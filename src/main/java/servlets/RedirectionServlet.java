@@ -31,5 +31,5 @@ public class RedirectionServlet extends HttpServlet {
     }
 
     /*@Inject*/ private RedirectionService redirectionService;
-    final Logger logger = LoggerFactory.getLogger(TestServlet.class);
+    final Logger logger = LoggerFactory.getLogger(ShortenerServlet.class);
 }

@@ -10,9 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-//@WebServlet("/TestServlet")
 @Singleton
-public class TestServlet extends HttpServlet {
+public class ShortenerServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -24,5 +23,5 @@ public class TestServlet extends HttpServlet {
         logger.debug("Received request from URI: " + requestUri);
     }
 
-    final Logger logger = LoggerFactory.getLogger(TestServlet.class);
+    final Logger logger = LoggerFactory.getLogger(ShortenerServlet.class);
 }

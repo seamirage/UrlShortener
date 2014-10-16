@@ -4,20 +4,13 @@ import idgeneration.IdGenerator;
 import idgeneration.LongIdToStringConverter;
 import storages.repositories.UserLinksRepository;
 
-import java.sql.SQLException;
+public class ShorterServiceImpl {
 
-public class UriShorterServiceImpl implements UriShortenerService {
-    @Override
     public String shortenAndStore(String originalUri, String userId) {
         long id = idGenerator.next();
         String shortUri = longToStringConverter.convert(id);
 
         return shortUri;
-    }
-
-    @Override
-    public String getOriginalUri(String shortenedUri) throws SQLException {
-        return uriRepository.getOriginalUri(shortenedUri);
     }
 
     private IdGenerator idGenerator;

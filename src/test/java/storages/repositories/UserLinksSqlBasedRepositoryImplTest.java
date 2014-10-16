@@ -23,7 +23,7 @@ public class UserLinksSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest
         executeStatement("CREATE table UserLinks (" +
                 "    ShortLinkId char(8)," +
                 "    OriginalUri varchar(2048)," +
-                "    UserId int" +
+                "    UserId char(36)" +
                 ");");
         repository = new UserLinksSqlBasedRepositoryImpl(connectionSource);
     }
@@ -35,19 +35,19 @@ public class UserLinksSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest
 
     @Test
     public void addLinkTest() throws URISyntaxException, SQLException {
-        repository.add(new UserLink(originalUri, shortLinkId, 1));
+        repository.add(new UserLink(originalUri, shortLinkId, userId));
 
         List<UserLink> allLinks = new GetAllUserLinksSqlQuery(connectionSource).execute();
         assertEquals(1, allLinks.size());
         UserLink addedLink = allLinks.get(0);
-        CheckUserLink(addedLink, originalUri, shortLinkId, 1);
+        CheckUserLink(addedLink, originalUri, shortLinkId, userId);
 
         System.out.print(UUID.randomUUID());
     }
 
     @Test
     public void getOriginalUri_WhenItExistsTest() throws SQLException {
-        repository.add(new UserLink(originalUri, shortLinkId, 1));
+        repository.add(new UserLink(originalUri, shortLinkId, userId));
 
         String original = repository.getOriginalUri(shortLinkId);
 
@@ -56,14 +56,14 @@ public class UserLinksSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest
 
     @Test
     public void getOriginalUri_WhenItDoesNotExistsTest() throws SQLException {
-        repository.add(new UserLink(originalUri, shortLinkId, 1));
+        repository.add(new UserLink(originalUri, shortLinkId, userId));
 
         String original = repository.getOriginalUri("not_existing");
 
         assertNull(original);
     }
 
-    private void CheckUserLink(UserLink addedLink, String expectedOriginalUri1, String expectedShortLinkId, int expectedUserId) {
+    private void CheckUserLink(UserLink addedLink, String expectedOriginalUri1, String expectedShortLinkId, String expectedUserId) {
         assertEquals(expectedOriginalUri1, addedLink.getOriginalUri());
         assertEquals(expectedShortLinkId, addedLink.getShortLinkId());
         assertEquals(expectedUserId, addedLink.getUserId());
@@ -71,6 +71,7 @@ public class UserLinksSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest
 
     private static final String originalUri = "https%3A%2F%2Fgoogle.ru%2Fsearch";
     private static final String shortLinkId = "short_01";
+    private static final String userId = "user_id";
     protected UserLinksRepository repository;
 }
 
