@@ -9,11 +9,14 @@ public class RedirectionService {
         this.userLinks = userLinksRepository;
     }
 
-    public String GetRedirectionUrl(String shortLinkId) throws SQLException {
-        String originalUri = userLinks.getOriginalUri(shortLinkId);
+    public String GetRedirectionUrl(String requestUri) throws SQLException {
+        String[] uriParts = requestUri.split("/");
+        String linkId = uriParts[2];
+        String originalUri = userLinks.getOriginalUri(linkId);
 
         return originalUri;
     }
 
     private UserLinksRepository userLinks;
+
 }

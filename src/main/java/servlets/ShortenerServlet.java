@@ -1,5 +1,6 @@
 package servlets;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +32,10 @@ public class ShortenerServlet extends HttpServlet {
                 logger.error(e.getMessage());
                 response.sendError(500);
             }
-            response.getOutputStream().print("<html><h1>Link:"+ shortLink + " </h1></html>");
+            response.getOutputStream().print("<html><h2>Link:"+ shortLink + " </h2></html>");
         } else {
             //TODO: redirect to login page
-            response.getOutputStream().print("<html><h1>You are not authorized</h1></html>");
+            response.getOutputStream().print("<html><h2>Authorization required</h2></html>");
         }
     }
 
@@ -52,7 +53,6 @@ public class ShortenerServlet extends HttpServlet {
         return userId;
     }
 
-    //@Inject
-    private ShortenerService shortenerService;
+    @Inject private ShortenerService shortenerService;
     final Logger logger = LoggerFactory.getLogger(ShortenerServlet.class);
 }

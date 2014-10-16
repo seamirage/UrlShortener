@@ -1,5 +1,6 @@
 package servlets;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +14,12 @@ import java.sql.SQLException;
 
 @Singleton
 public class RedirectionServlet extends HttpServlet {
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String shortLinkId = request.getRequestURI();
+        String requestUri = request.getRequestURI();
+
         try {
-            String originalUri = redirectionService.GetRedirectionUrl(shortLinkId);
+            String originalUri = redirectionService.GetRedirectionUrl(requestUri);
             if (null != originalUri) {
                 response.setStatus(302);
                 response.setHeader("Location", originalUri);
@@ -30,6 +33,6 @@ public class RedirectionServlet extends HttpServlet {
         }
     }
 
-    /*@Inject*/ private RedirectionService redirectionService;
+    @Inject RedirectionService redirectionService;
     final Logger logger = LoggerFactory.getLogger(ShortenerServlet.class);
 }
