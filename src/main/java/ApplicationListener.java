@@ -3,9 +3,12 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
+import configuration.UrlShortenerConfiguration;
+import configuration.UrlShortenerXmlConfiguration;
 import idgeneration.AlphabetBasedLongIdToStringConverterImpl;
 import idgeneration.DummyIdGeneratorImpl;
 import idgeneration.SymbolsWithNumbersAlphabetImpl;
+import org.apache.commons.configuration.ConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import services.RedirectionService;
@@ -47,16 +50,10 @@ class DevModule extends AbstractModule {
     @Override
     protected void configure() {
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            //TODO: stop application?
-        }
+        initializeDatabaseDriver();
+        UrlShortenerConfiguration config = loadConfig();
 
-        //TODO: all parameters should be moved in config
-
-        ConnectionSource connectionSource = new SimpleConnectionSourceImpl("root", "mV1N57t", "jdbc:mysql://localhost:3306/UrlShortenerDB");
+        ConnectionSource connectionSource = new SimpleConnectionSourceImpl(config.getDbUserName(), config.getDbPassword(),config.getDbUrl());
         UserLinksSqlBasedRepositoryImpl userLinksRepository = new UserLinksSqlBasedRepositoryImpl(connectionSource);
         UsersSqlBasedRepositoryImpl usersRepository = new UsersSqlBasedRepositoryImpl(connectionSource);
 
@@ -64,11 +61,31 @@ class DevModule extends AbstractModule {
         bind(ShortenerService.class).toInstance(
                 new ShortenerService(
                         new DummyIdGeneratorImpl(218340105584895L),
-                        new AlphabetBasedLongIdToStringConverterImpl(new SymbolsWithNumbersAlphabetImpl(), 8),
+                        new AlphabetBasedLongIdToStringConverterImpl(new SymbolsWithNumbersAlphabetImpl(), config.getLinkLength()),
                         userLinksRepository,
-                        "http://localhost:8080/url-shortener/"
+                        config.getBaseUrl()
                 )
         );
+    }
+
+    private UrlShortenerXmlConfiguration loadConfig() {
+        UrlShortenerXmlConfiguration config = null;
+        try {
+            config = new UrlShortenerXmlConfiguration("config.xml");
+        } catch (ConfigurationException e) {
+            logger.error(e.getMessage());
+            //TODO: stop app?
+        }
+        return config;
+    }
+
+    private void initializeDatabaseDriver() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            //TODO: stop application?
+        }
     }
 
     private final Logger logger = LoggerFactory.getLogger(DevModule.class);

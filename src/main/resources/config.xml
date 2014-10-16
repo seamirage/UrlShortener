@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <config>
+        <database>
+            <username>root</username>>
+            <password>mV1N57t</password>
+            <dbUrl>jdbc:mysql://localhost:3306/UrlShortenerDB</dbUrl>
+        </database>
+        <baseUrl>http://localhost:8080/url-shortener/</baseUrl>
+        <linkLength>8</linkLength>>
+    </config>
