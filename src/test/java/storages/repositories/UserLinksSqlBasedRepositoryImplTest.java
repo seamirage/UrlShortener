@@ -10,7 +10,6 @@ import storages.sql_queries.GetAllUserLinksSqlQuery;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -41,8 +40,6 @@ public class UserLinksSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest
         assertEquals(1, allLinks.size());
         UserLink addedLink = allLinks.get(0);
         CheckUserLink(addedLink, originalUri, shortLinkId, userId);
-
-        System.out.print(UUID.randomUUID());
     }
 
     @Test

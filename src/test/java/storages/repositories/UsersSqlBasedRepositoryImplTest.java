@@ -43,9 +43,8 @@ public class UsersSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest {
     @Test
     public void findUserByIdentity_WhenItExistsTest() throws SQLException {
         respository.add(new UserInfo(googleIdentity));
-        FindUserByGoogleIdentity query = new FindUserByGoogleIdentity(connectionSource, googleIdentity);
 
-        UserInfo user = query.execute();
+        UserInfo user = respository.findUserByGoogleIdentity(googleIdentity);
 
         assertEquals(googleIdentity, user.getGoogleIdentity());
     }
@@ -54,7 +53,7 @@ public class UsersSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest {
     public void findUserByIdentity_WhenItDoesNotExistsTest() throws SQLException {
         FindUserByGoogleIdentity query = new FindUserByGoogleIdentity(connectionSource, googleIdentity);
 
-        UserInfo user = query.execute();
+        UserInfo user = respository.findUserByGoogleIdentity(googleIdentity);
 
         assertNull(user);
     }

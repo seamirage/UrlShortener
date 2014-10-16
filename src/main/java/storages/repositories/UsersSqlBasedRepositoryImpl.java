@@ -19,8 +19,9 @@ public class UsersSqlBasedRepositoryImpl implements UsersRepository {
     }
 
     @Override
-    public void findUserByGoogleIdentity(String googleIdentity) {
+    public UserInfo findUserByGoogleIdentity(String googleIdentity) throws SQLException {
         FindUserByGoogleIdentity query = new FindUserByGoogleIdentity(connectionSource, googleIdentity);
+        return query.execute();
     }
 
     private ConnectionSource connectionSource;
