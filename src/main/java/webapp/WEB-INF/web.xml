@@ -12,15 +12,6 @@
     </listener>
 
     <servlet>
-        <servlet-name>TestServlet</servlet-name>
-        <servlet-class>servlets.ShortenerServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>TestServlet</servlet-name>
-        <url-pattern>/test</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>ViewStatusMessages</servlet-name>
         <servlet-class>ch.qos.logback.classic.ViewStatusMessagesServlet</servlet-class>
     </servlet>

@@ -22,11 +22,11 @@ public class RedirectionServlet extends HttpServlet {
                 response.setHeader("Location", originalUri);
                 response.setHeader("Connection", "close");
             } else {
-                response.setStatus(404);
+                response.sendError(404);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage());
-            response.setStatus(500);
+            response.sendError(500);
         }
     }
 

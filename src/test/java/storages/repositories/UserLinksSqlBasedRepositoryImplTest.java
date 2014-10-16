@@ -69,7 +69,7 @@ public class UserLinksSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest
         assertEquals(expectedUserId, addedLink.getUserId());
     }
 
-    private static final String originalUri = "https%3A%2F%2Fgoogle.ru%2Fsearch";
+    private static final String originalUri = "http://google.ru";
     private static final String shortLinkId = "short_01";
     private static final String userId = "user_id";
     protected UserLinksRepository repository;
