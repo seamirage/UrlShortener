@@ -18,7 +18,7 @@ import servlets.LogoutServlet;
 import servlets.RedirectionServlet;
 import servlets.ShortenerServlet;
 import storages.connection_sources.ConnectionSource;
-import storages.connection_sources.SimpleConnectionSourceImpl;
+import storages.connection_sources.PooledConnectionSourceImpl;
 import storages.repositories.UserLinksSqlBasedRepositoryImpl;
 import storages.repositories.UsersRepository;
 import storages.repositories.UsersSqlBasedRepositoryImpl;
@@ -59,7 +59,7 @@ class DevModule extends AbstractModule {
         initializeDatabaseDriver();
         UrlShortenerConfiguration config = loadConfig();
 
-        ConnectionSource connectionSource = new SimpleConnectionSourceImpl(config.getDbUserName(), config.getDbPassword(),config.getDbUrl());
+        ConnectionSource connectionSource = new PooledConnectionSourceImpl(config.getDbUserName(), config.getDbPassword(),config.getDbUrl());
         UserLinksSqlBasedRepositoryImpl userLinksRepository = new UserLinksSqlBasedRepositoryImpl(connectionSource);
         UsersSqlBasedRepositoryImpl usersRepository = new UsersSqlBasedRepositoryImpl(connectionSource);
 
