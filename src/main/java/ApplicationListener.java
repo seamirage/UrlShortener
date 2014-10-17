@@ -4,11 +4,10 @@ import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 import configuration.UrlShortenerConfiguration;
-import configuration.UrlShortenerXmlConfiguration;
+import configuration.UrlShortenerPropertiesConfiguration;
 import idgeneration.AlphabetBasedLongIdToStringConverterImpl;
 import idgeneration.DummyIdGeneratorImpl;
 import idgeneration.SymbolsWithNumbersAlphabetImpl;
-import org.apache.commons.configuration.ConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import services.RedirectionService;
@@ -25,6 +24,7 @@ import storages.repositories.UsersSqlBasedRepositoryImpl;
 import validation.UriValidator;
 
 import javax.servlet.ServletContextEvent;
+import java.io.IOException;
 
 public class ApplicationListener extends GuiceServletContextListener {
 
@@ -55,7 +55,6 @@ class DevModule extends AbstractModule {
 
     @Override
     protected void configure() {
-
         initializeDatabaseDriver();
         UrlShortenerConfiguration config = loadConfig();
 
@@ -72,17 +71,18 @@ class DevModule extends AbstractModule {
                         config.getBaseUrl()
                 )
         );
+
         bind(UsersRepository.class).toInstance(usersRepository);
         bind(UrlShortenerConfiguration.class).toInstance(config);
         bind(UriValidator.class).toInstance(new UriValidator(config.getMaxLengthOfOriginalUri(), config.getBaseUrlWithoutProtocol()));
     }
 
-    private UrlShortenerXmlConfiguration loadConfig() {
-        UrlShortenerXmlConfiguration config = null;
+    private UrlShortenerConfiguration loadConfig() {
+        UrlShortenerConfiguration config = null;
         try {
-            config = new UrlShortenerXmlConfiguration("config.xml");
-        } catch (ConfigurationException e) {
-            logger.error(e.getMessage());
+            config = new UrlShortenerPropertiesConfiguration("/config.properties");
+        } catch (IOException e) {
+           logger.error(e.getMessage());
             //TODO: stop app?
         }
         return config;
