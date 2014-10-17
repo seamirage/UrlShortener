@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import storages.dto.UserInfo;
-import storages.sql_queries.FindUserByGoogleIdentity;
 import storages.sql_queries.GetAllUsersSqlQuery;
 
 import java.sql.SQLException;
@@ -51,11 +50,27 @@ public class UsersSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest {
 
     @Test
     public void findUserByIdentity_WhenItDoesNotExistsTest() throws SQLException {
-        FindUserByGoogleIdentity query = new FindUserByGoogleIdentity(connectionSource, googleIdentity);
-
         UserInfo user = respository.findUserByGoogleIdentity(googleIdentity);
 
         assertNull(user);
+    }
+
+    @Test
+    public void whenUserIsNew_StoreHim_AndReturnUserInfo() throws SQLException {
+        UserInfo user = respository.addUserIfNotExists(googleIdentity);
+
+        assertEquals(googleIdentity, user.getGoogleIdentity());
+        assertNotNull(user.getUserId());
+    }
+
+    @Test
+    public void whenUserAlreadyExists_ReturnUserInfo() throws SQLException {
+        UserInfo added = new UserInfo(googleIdentity);
+        respository.add(added);
+
+        UserInfo actualUser = respository.addUserIfNotExists(googleIdentity);
+
+        assertEquals(added.getUserId(), actualUser.getUserId());
     }
 
     private UsersSqlBasedRepositoryImpl respository;

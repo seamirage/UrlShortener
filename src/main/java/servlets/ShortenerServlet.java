@@ -32,7 +32,7 @@ public class ShortenerServlet extends HttpServlet {
                 logger.error(e.getMessage());
                 response.sendError(500);
             }
-            response.getOutputStream().print("<html><h2>Link:"+ shortLink + " </h2></html>");
+            response.getOutputStream().print("<html><h2><a href=\""+ shortLink +"\">"+ shortLink + " </a></h2></html>");
         } else {
             //TODO: redirect to login page
             response.getOutputStream().print("<html><h2>Authorization required</h2></html>");

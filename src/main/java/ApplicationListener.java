@@ -13,11 +13,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import services.RedirectionService;
 import services.ShortenerService;
+import servlets.AuthenticationByGoogleServlet;
 import servlets.RedirectionServlet;
 import servlets.ShortenerServlet;
 import storages.connection_sources.ConnectionSource;
 import storages.connection_sources.SimpleConnectionSourceImpl;
 import storages.repositories.UserLinksSqlBasedRepositoryImpl;
+import storages.repositories.UsersRepository;
 import storages.repositories.UsersSqlBasedRepositoryImpl;
 
 import javax.servlet.ServletContextEvent;
@@ -37,6 +39,7 @@ public class ApplicationListener extends GuiceServletContextListener {
                     @Override
                     protected void configureServlets() {
                         serve("/shorten").with(ShortenerServlet.class);
+                        serve("/authenticateByGoogle").with(AuthenticationByGoogleServlet.class);
                         serve("/*").with(RedirectionServlet.class);
                     }
                 });
@@ -66,6 +69,8 @@ class DevModule extends AbstractModule {
                         config.getBaseUrl()
                 )
         );
+        bind(UsersRepository.class).toInstance(usersRepository);
+        bind(UrlShortenerConfiguration.class).toInstance(config);
     }
 
     private UrlShortenerXmlConfiguration loadConfig() {

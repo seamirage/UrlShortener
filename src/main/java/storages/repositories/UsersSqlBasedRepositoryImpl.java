@@ -24,5 +24,16 @@ public class UsersSqlBasedRepositoryImpl implements UsersRepository {
         return query.execute();
     }
 
+    @Override
+    public UserInfo addUserIfNotExists(String googleIdentity) throws SQLException {
+        UserInfo user = findUserByGoogleIdentity(googleIdentity);
+        if (null == user) {
+            user = new UserInfo(googleIdentity);
+            add(user);
+        }
+
+        return user;
+    }
+
     private ConnectionSource connectionSource;
 }

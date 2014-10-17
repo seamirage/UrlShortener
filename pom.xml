@@ -81,6 +81,12 @@
             <version>3.2.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.expressme</groupId>
+            <artifactId>JOpenId</artifactId>
+            <version>1.08</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>url-shortener</finalName>
