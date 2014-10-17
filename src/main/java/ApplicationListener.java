@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import services.RedirectionService;
 import services.ShortenerService;
 import servlets.AuthenticationByGoogleServlet;
+import servlets.LogoutServlet;
 import servlets.RedirectionServlet;
 import servlets.ShortenerServlet;
 import storages.connection_sources.ConnectionSource;
@@ -40,6 +41,7 @@ public class ApplicationListener extends GuiceServletContextListener {
                     protected void configureServlets() {
                         serve("/shorten").with(ShortenerServlet.class);
                         serve("/authenticateByGoogle").with(AuthenticationByGoogleServlet.class);
+                        serve("/logout").with(LogoutServlet.class);
                         serve("/*").with(RedirectionServlet.class);
                     }
                 });
