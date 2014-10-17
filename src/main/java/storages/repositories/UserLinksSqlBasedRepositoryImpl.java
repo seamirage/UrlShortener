@@ -1,11 +1,10 @@
 package storages.repositories;
 
+import storages.DatabaseException;
 import storages.connection_sources.ConnectionSource;
 import storages.dto.UserLink;
 import storages.sql_commands.AddUserLinkSqlCommand;
 import storages.sql_queries.GetOriginalUriSqlQuery;
-
-import java.sql.SQLException;
 
 public class UserLinksSqlBasedRepositoryImpl implements UserLinksRepository {
     public UserLinksSqlBasedRepositoryImpl(ConnectionSource connectionSource) {
@@ -13,13 +12,13 @@ public class UserLinksSqlBasedRepositoryImpl implements UserLinksRepository {
     }
 
     @Override
-    public void add(UserLink userLink) throws SQLException {
+    public void add(UserLink userLink) throws DatabaseException {
         AddUserLinkSqlCommand command = new AddUserLinkSqlCommand(connectionSource, userLink);
         command.execute();
     }
 
     @Override
-    public String getOriginalUri(String shortLinkId) throws SQLException {
+    public String getOriginalUri(String shortLinkId) throws DatabaseException {
         GetOriginalUriSqlQuery query = new GetOriginalUriSqlQuery(connectionSource, shortLinkId);
         return query.execute();
     }

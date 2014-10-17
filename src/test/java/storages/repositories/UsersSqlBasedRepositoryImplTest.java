@@ -3,6 +3,7 @@ package storages.repositories;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import storages.DatabaseException;
 import storages.dto.UserInfo;
 import storages.sql_queries.GetAllUsersSqlQuery;
 
@@ -13,7 +14,7 @@ import static org.junit.Assert.*;
 
 public class UsersSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest {
     @Before
-    public void SetUp() throws SQLException {
+    public void SetUp() throws SQLException, DatabaseException {
         super.SetUp();
         executeStatement("CREATE table Users (" +
                 "    UserId char(36)," +
@@ -23,12 +24,12 @@ public class UsersSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest {
     }
 
     @After
-    public void TearDown() throws SQLException {
+    public void TearDown() throws SQLException, DatabaseException {
         executeStatement("DROP table Users");
     }
 
     @Test
-    public void addUserTest() throws SQLException {
+    public void addUserTest() throws DatabaseException {
         UserInfo user = new UserInfo(googleIdentity);
         respository.add(user);
 
@@ -40,7 +41,7 @@ public class UsersSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest {
     }
 
     @Test
-    public void findUserByIdentity_WhenItExistsTest() throws SQLException {
+    public void findUserByIdentity_WhenItExistsTest() throws DatabaseException {
         respository.add(new UserInfo(googleIdentity));
 
         UserInfo user = respository.findUserByGoogleIdentity(googleIdentity);
@@ -49,14 +50,14 @@ public class UsersSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest {
     }
 
     @Test
-    public void findUserByIdentity_WhenItDoesNotExistsTest() throws SQLException {
+    public void findUserByIdentity_WhenItDoesNotExistsTest() throws DatabaseException {
         UserInfo user = respository.findUserByGoogleIdentity(googleIdentity);
 
         assertNull(user);
     }
 
     @Test
-    public void whenUserIsNew_StoreHim_AndReturnUserInfo() throws SQLException {
+    public void whenUserIsNew_StoreHim_AndReturnUserInfo() throws DatabaseException {
         UserInfo user = respository.addUserIfNotExists(googleIdentity);
 
         assertEquals(googleIdentity, user.getGoogleIdentity());
@@ -64,7 +65,7 @@ public class UsersSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest {
     }
 
     @Test
-    public void whenUserAlreadyExists_ReturnUserInfo() throws SQLException {
+    public void whenUserAlreadyExists_ReturnUserInfo() throws DatabaseException {
         UserInfo added = new UserInfo(googleIdentity);
         respository.add(added);
 

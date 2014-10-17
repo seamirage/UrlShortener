@@ -1,5 +1,7 @@
 package storages.connection_sources;
 
+import storages.DatabaseException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,9 +14,13 @@ public class SimpleConnectionSourceImpl implements ConnectionSource {
     }
 
     @Override
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection() throws DatabaseException {
 
-        return DriverManager.getConnection(dbUrl, username, password);
+        try {
+            return DriverManager.getConnection(dbUrl, username, password);
+        } catch (SQLException e) {
+            throw new DatabaseException(e);
+        }
     }
 
     private final String username;

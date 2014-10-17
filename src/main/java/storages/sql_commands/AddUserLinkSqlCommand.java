@@ -1,5 +1,6 @@
 package storages.sql_commands;
 
+import storages.DatabaseException;
 import storages.connection_sources.ConnectionSource;
 import storages.dto.UserLink;
 

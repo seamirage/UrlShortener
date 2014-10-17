@@ -7,10 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatcher;
 import org.mockito.Matchers;
+import storages.DatabaseException;
 import storages.dto.UserLink;
 import storages.repositories.UserLinksRepository;
-
-import java.sql.SQLException;
 
 import static org.mockito.Mockito.*;
 
@@ -24,7 +23,7 @@ public class ShortenerServiceTest {
     }
 
     @Test
-    public void storeNewLinkTest() throws SQLException {
+    public void storeNewLinkTest() throws DatabaseException {
         when(generatorMock.next()).thenReturn(1L);
         when(converterMock.convert(1L)).thenReturn(linkId);
 

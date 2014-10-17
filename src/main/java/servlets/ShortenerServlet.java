@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import services.ShortenerService;
+import storages.DatabaseException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.sql.SQLException;
 
 @Singleton
 public class ShortenerServlet extends HttpServlet {
@@ -28,8 +28,8 @@ public class ShortenerServlet extends HttpServlet {
             String shortLink = null;
             try {
                 shortLink = shortenerService.shortenAndStore(URLDecoder.decode(originalUri, "UTF-8"), userId);
-            } catch (SQLException e) {
-                logger.error(e.getMessage());
+            } catch (DatabaseException e) {
+                logger.error("Could not shorten uri", e);
                 response.sendError(500);
             }
             response.getOutputStream().print("<html><h2><a href=\""+ shortLink +"\">"+ shortLink + " </a></h2></html>");

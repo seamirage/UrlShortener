@@ -1,5 +1,6 @@
 package storages.sql_commands;
 
+import storages.DatabaseException;
 import storages.connection_sources.ConnectionSource;
 
 import java.sql.Connection;
@@ -13,12 +14,17 @@ public class SqlCommand {
         this.statement = statement;
     }
 
-    public void execute() throws SQLException {
-        try (Connection connection = connectionSource.getConnection()){
-            try (PreparedStatement preparedStatement = connection.prepareStatement(statement)) {
-                addParameters(preparedStatement);
-                preparedStatement.execute();
+    public void execute() throws DatabaseException {
+
+        try {
+            try (Connection connection = connectionSource.getConnection()) {
+                try (PreparedStatement preparedStatement = connection.prepareStatement(statement)) {
+                    addParameters(preparedStatement);
+                    preparedStatement.execute();
+                }
             }
+        } catch (SQLException e) {
+            throw new DatabaseException(e);
         }
     }
 

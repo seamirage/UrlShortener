@@ -4,6 +4,7 @@ package storages.repositories;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import storages.DatabaseException;
 import storages.dto.UserLink;
 import storages.sql_queries.GetAllUserLinksSqlQuery;
 
@@ -17,7 +18,7 @@ import static org.junit.Assert.assertNull;
 public class UserLinksSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest {
 
     @Before
-    public void SetUp() throws SQLException {
+    public void SetUp() throws DatabaseException, SQLException {
         super.SetUp();
         executeStatement("CREATE table UserLinks (" +
                 "    ShortLinkId char(8)," +
@@ -28,12 +29,12 @@ public class UserLinksSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest
     }
 
     @After
-    public void TearDown() throws SQLException {
+    public void TearDown() throws SQLException, DatabaseException {
        executeStatement("DROP table UserLinks");
     }
 
     @Test
-    public void addLinkTest() throws URISyntaxException, SQLException {
+    public void addLinkTest() throws URISyntaxException, DatabaseException {
         repository.add(new UserLink(originalUri, shortLinkId, userId));
 
         List<UserLink> allLinks = new GetAllUserLinksSqlQuery(connectionSource).execute();
@@ -43,7 +44,7 @@ public class UserLinksSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest
     }
 
     @Test
-    public void getOriginalUri_WhenItExistsTest() throws SQLException {
+    public void getOriginalUri_WhenItExistsTest() throws DatabaseException {
         repository.add(new UserLink(originalUri, shortLinkId, userId));
 
         String original = repository.getOriginalUri(shortLinkId);
@@ -52,7 +53,7 @@ public class UserLinksSqlBasedRepositoryImplTest extends SqlRepositoriesBaseTest
     }
 
     @Test
-    public void getOriginalUri_WhenItDoesNotExistsTest() throws SQLException {
+    public void getOriginalUri_WhenItDoesNotExistsTest() throws DatabaseException {
         repository.add(new UserLink(originalUri, shortLinkId, userId));
 
         String original = repository.getOriginalUri("not_existing");

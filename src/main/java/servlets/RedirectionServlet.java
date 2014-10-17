@@ -5,12 +5,12 @@ import com.google.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import services.RedirectionService;
+import storages.DatabaseException;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @Singleton
 public class RedirectionServlet extends HttpServlet {
@@ -27,8 +27,8 @@ public class RedirectionServlet extends HttpServlet {
             } else {
                 response.sendError(404);
             }
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
+        } catch (DatabaseException e) {
+            logger.error("Could not find original uri", e);
             response.sendError(500);
         }
     }

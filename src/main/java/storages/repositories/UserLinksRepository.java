@@ -1,10 +1,9 @@
 package storages.repositories;
 
+import storages.DatabaseException;
 import storages.dto.UserLink;
 
-import java.sql.SQLException;
-
 public interface UserLinksRepository {
-    void add(UserLink userLink) throws SQLException;
-    String getOriginalUri(String shortUri) throws SQLException;
+    void add(UserLink userLink) throws DatabaseException;
+    String getOriginalUri(String shortUri) throws DatabaseException;
 }

@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import configuration.UrlShortenerConfiguration;
 import org.expressme.openid.*;
 import org.slf4j.LoggerFactory;
+import storages.DatabaseException;
 import storages.dto.UserInfo;
 import storages.repositories.UsersRepository;
 
@@ -15,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -44,8 +44,8 @@ public class AuthenticationByGoogleServlet extends HttpServlet {
             UserInfo user = null;
             try {
                 user = usersRepository.addUserIfNotExists(identity);
-            } catch (SQLException e) {
-                logger.error(e.getMessage());
+            } catch (DatabaseException e) {
+                logger.error("Could not store or retrieve user", e);
                 response.sendError(500);
                 return;
             }

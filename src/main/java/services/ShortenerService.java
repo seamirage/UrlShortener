@@ -2,10 +2,9 @@ package services;
 
 import idgeneration.IdGenerator;
 import idgeneration.LongIdToStringConverter;
+import storages.DatabaseException;
 import storages.dto.UserLink;
 import storages.repositories.UserLinksRepository;
-
-import java.sql.SQLException;
 
 public class ShortenerService {
 
@@ -16,7 +15,7 @@ public class ShortenerService {
         this.prefix = prefix;
     }
 
-    public String shortenAndStore(String originalUri, String userId) throws SQLException {
+    public String shortenAndStore(String originalUri, String userId) throws DatabaseException {
         long id = idGenerator.next();
         String shortLinkId = longToStringConverter.convert(id);
         uriRepository.add(new UserLink(originalUri, shortLinkId, userId));

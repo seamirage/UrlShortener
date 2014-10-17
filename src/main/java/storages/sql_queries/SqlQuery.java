@@ -1,5 +1,6 @@
 package storages.sql_queries;
 
+import storages.DatabaseException;
 import storages.connection_sources.ConnectionSource;
 
 import java.sql.Connection;
@@ -13,13 +14,7 @@ public abstract class SqlQuery<TResult> {
         this.connectionSource = connectionSource;
     }
 
-    protected void addParameters(PreparedStatement preparedStatement) throws SQLException {
-
-    }
-
-    protected abstract TResult readAndConvertResultSet(ResultSet resultSet) throws SQLException;
-
-    public TResult execute() throws SQLException {
+    public TResult execute() throws DatabaseException {
         try (Connection connection = connectionSource.getConnection()) {
             try (PreparedStatement preparedStatement = connection.prepareStatement(statement)) {
                 addParameters(preparedStatement);
@@ -27,8 +22,16 @@ public abstract class SqlQuery<TResult> {
                     return readAndConvertResultSet(result);
                 }
             }
+        } catch (SQLException e) {
+            throw new DatabaseException(e);
         }
     }
+
+    protected void addParameters(PreparedStatement preparedStatement) throws SQLException {
+
+    }
+
+    protected abstract TResult readAndConvertResultSet(ResultSet resultSet) throws SQLException;
 
     private ConnectionSource connectionSource;
     private final String statement;
