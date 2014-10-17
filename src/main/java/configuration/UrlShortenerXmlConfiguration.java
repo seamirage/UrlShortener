@@ -33,5 +33,15 @@ public class UrlShortenerXmlConfiguration implements UrlShortenerConfiguration {
         return config.getInt("linkLength");
     }
 
+    @Override
+    public int getMaxLengthOfOriginalUri() {
+        return config.getInt("maxLengthOfOriginalUri");
+    }
+
+    @Override
+    public String getBaseUrlWithoutProtocol() {
+        return config.getString("baseUrlWithoutProtocol");
+    }
+
     private XMLConfiguration config;
 }

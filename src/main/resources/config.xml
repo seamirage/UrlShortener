@@ -6,5 +6,7 @@
             <dbUrl>jdbc:mysql://localhost:3306/UrlShortenerDB</dbUrl>
         </database>
         <baseUrl>http://localhost:8080/url-shortener/</baseUrl>
-        <linkLength>8</linkLength>>
+        <baseUrlWithoutProtocol>localhost:8080/url-shortener</baseUrlWithoutProtocol>
+        <linkLength>8</linkLength>
+        <maxLengthOfOriginalUri>2048</maxLengthOfOriginalUri>
     </config>

@@ -22,6 +22,7 @@ import storages.connection_sources.SimpleConnectionSourceImpl;
 import storages.repositories.UserLinksSqlBasedRepositoryImpl;
 import storages.repositories.UsersRepository;
 import storages.repositories.UsersSqlBasedRepositoryImpl;
+import validation.UriValidator;
 
 import javax.servlet.ServletContextEvent;
 
@@ -73,6 +74,7 @@ class DevModule extends AbstractModule {
         );
         bind(UsersRepository.class).toInstance(usersRepository);
         bind(UrlShortenerConfiguration.class).toInstance(config);
+        bind(UriValidator.class).toInstance(new UriValidator(config.getMaxLengthOfOriginalUri(), config.getBaseUrlWithoutProtocol()));
     }
 
     private UrlShortenerXmlConfiguration loadConfig() {

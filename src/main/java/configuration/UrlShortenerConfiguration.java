@@ -10,4 +10,8 @@ public interface UrlShortenerConfiguration {
     String getBaseUrl();
 
     int getLinkLength();
+
+    int getMaxLengthOfOriginalUri();
+
+    String getBaseUrlWithoutProtocol();
 }

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import services.ShortenerService;
 import storages.DatabaseException;
+import validation.UriValidator;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -25,34 +26,41 @@ public class ShortenerServlet extends HttpServlet {
         //Used very simple authentication for focusing on domain problems
         String userId = getUserIdFromCookies(cookies);
         if (null != userId) {
-            String shortLink = null;
-            try {
-                shortLink = shortenerService.shortenAndStore(URLDecoder.decode(originalUri, "UTF-8"), userId);
-            } catch (DatabaseException e) {
-                logger.error("Could not shorten uri", e);
-                response.sendError(500);
-            }
-            response.getOutputStream().print("<html><h2><a href=\""+ shortLink +"\">"+ shortLink + " </a></h2></html>");
+            shortenUri(originalUri, userId, response);
         } else {
             //TODO: redirect to login page
             response.getOutputStream().print("<html><h2>Authorization required</h2></html>");
         }
     }
 
-    private String getUserIdFromCookies(Cookie[] cookies) {
-        String userId = null;
-        if (null != cookies) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("userId")) {
-                    userId = cookie.getValue();
-                    break;
-                }
-            }
+    private void shortenUri(String originalUri, String userId, HttpServletResponse response) throws IOException {
+        String decodedUri = URLDecoder.decode(originalUri, "UTF-8");
+        if (!validator.isValid(decodedUri)) {
+            response.sendError(500, "Uri is incorrect.");
+            return;
         }
 
-        return userId;
+        String shortLink;
+        try {
+            shortLink = shortenerService.shortenAndStore(decodedUri, userId);
+        } catch (DatabaseException e) {
+            logger.error("Could not shorten uri", e);
+            response.sendError(500);
+            return;
+        }
+        response.getOutputStream().print("<html><h2><a href=\""+ shortLink +"\">"+ shortLink + " </a></h2></html>");
+    }
+
+    private String getUserIdFromCookies(Cookie[] cookies) {
+        Cookie userIdCookie = Cookies.getCookieByName("userId", cookies);
+        if (null != userIdCookie) {
+           return userIdCookie.getValue();
+        } else {
+            return null;
+        }
     }
 
     @Inject private ShortenerService shortenerService;
+    @Inject private UriValidator validator;
     final Logger logger = LoggerFactory.getLogger(ShortenerServlet.class);
 }
