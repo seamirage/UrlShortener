@@ -43,7 +43,7 @@ public class ShortenerServlet extends HttpServlet {
             response.sendError(500);
             return;
         }
-        response.getOutputStream().print("<html><h2><a href=\""+ shortLink +"\">"+ shortLink + " </a></h2></html>");
+        response.getOutputStream().print(shortLink);
     }
 
     private String getUserIdFromCookies(Cookie[] cookies) {

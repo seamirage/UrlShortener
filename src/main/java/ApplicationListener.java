@@ -46,6 +46,7 @@ public class ApplicationListener extends GuiceServletContextListener {
                         serve("/logout").with(LogoutServlet.class);
                         serveRegex("/\\w+").with(RedirectionServlet.class);
                         filter("/shorten").through(IsAuthorizedFilter.class);
+                        filter("/").through(IsAuthorizedFilter.class);
                     }
                 });
     }

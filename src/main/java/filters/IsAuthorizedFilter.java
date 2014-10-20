@@ -23,8 +23,7 @@ public class IsAuthorizedFilter implements Filter {
             if (Cookies.hasCookie("userId", request.getCookies())) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
-                ((HttpServletResponse)servletResponse).sendError(501);
-                //TODO: redirect to login page
+                ((HttpServletResponse)servletResponse).sendRedirect("login.jsp");
             }
         }
     }
