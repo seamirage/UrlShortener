@@ -5,6 +5,7 @@ import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 import configuration.UrlShortenerConfiguration;
 import configuration.UrlShortenerPropertiesConfiguration;
+import filters.IsAuthorizedFilter;
 import idgeneration.AlphabetBasedLongIdToStringConverterImpl;
 import idgeneration.DummyIdGeneratorImpl;
 import idgeneration.SymbolsWithNumbersAlphabetImpl;
@@ -43,7 +44,8 @@ public class ApplicationListener extends GuiceServletContextListener {
                         serve("/shorten").with(ShortenerServlet.class);
                         serve("/authenticateByGoogle").with(AuthenticationByGoogleServlet.class);
                         serve("/logout").with(LogoutServlet.class);
-                        serve("/*").with(RedirectionServlet.class);
+                        serveRegex("/\\w+").with(RedirectionServlet.class);
+                        filter("/shorten").through(IsAuthorizedFilter.class);
                     }
                 });
     }

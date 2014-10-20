@@ -25,12 +25,7 @@ public class ShortenerServlet extends HttpServlet {
 
         //Used very simple authentication for focusing on domain problems
         String userId = getUserIdFromCookies(cookies);
-        if (null != userId) {
-            shortenUri(originalUri, userId, response);
-        } else {
-            //TODO: redirect to login page
-            response.getOutputStream().print("<html><h2>Authorization required</h2></html>");
-        }
+        shortenUri(originalUri, userId, response);
     }
 
     private void shortenUri(String originalUri, String userId, HttpServletResponse response) throws IOException {
