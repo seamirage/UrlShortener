@@ -23,4 +23,10 @@ public class Cookies {
             response.addCookie(removingCookie);
         }
     }
+
+    public static boolean hasCookie(String name, Cookie[] cookies) {
+        Cookie cookie = getCookieByName(name, cookies);
+
+        return null != cookie;
+    }
 }
