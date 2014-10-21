@@ -15,6 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLDecoder;
 
+/**
+ * Shortens specified URL.<br/>
+ * Query string parameters:
+ * <ul>
+ *     <li>url: URL-encoded long url</li>
+ * </ul><br/>
+ * Response: <br/>
+ * <ul>
+ *     <li>200: response contains shortened URL</li>
+ * </ul>
+ */
 @Singleton
 public class ShortenerServlet extends HttpServlet {
 

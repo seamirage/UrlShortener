@@ -2,6 +2,9 @@ package idgeneration;
 
 import java.util.HashMap;
 
+/**
+ * Alphabet, consisting of numbers and letters (in lowercase and uppercase).
+ */
 public class SymbolsWithNumbersAlphabetImpl implements Alphabet {
 
     public SymbolsWithNumbersAlphabetImpl() {

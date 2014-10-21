@@ -6,6 +6,9 @@ import storages.dto.UserInfo;
 import storages.sql_commands.AddUserSqlCommand;
 import storages.sql_queries.FindUserByGoogleIdentity;
 
+/**
+ * Implementation of UsersRepository for SQL DBMS.
+ */
 public class UsersSqlBasedRepositoryImpl implements UsersRepository {
     public UsersSqlBasedRepositoryImpl(ConnectionSource connectionSource) {
         this.connectionSource = connectionSource;

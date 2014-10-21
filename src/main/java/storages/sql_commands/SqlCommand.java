@@ -7,13 +7,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class SqlCommand {
+/**
+ * Represents a SQL statement to execute against a database server.
+ */
+public abstract class SqlCommand {
 
     public SqlCommand(ConnectionSource connectionSource, String statement) {
         this.connectionSource = connectionSource;
         this.statement = statement;
     }
 
+    /**
+     * Executes statement against a database server.
+     * @throws DatabaseException
+     */
     public void execute() throws DatabaseException {
 
         try {

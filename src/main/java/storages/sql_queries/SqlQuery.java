@@ -8,12 +8,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Represents a SQL query to execute against a database server.
+ * @param <TResult> result type
+ */
+
 public abstract class SqlQuery<TResult> {
     public SqlQuery(String statement, ConnectionSource connectionSource) {
         this.statement = statement;
         this.connectionSource = connectionSource;
     }
 
+    /**
+     * Executes query against a database server.
+     * @return
+     * @throws DatabaseException
+     */
     public TResult execute() throws DatabaseException {
         try (Connection connection = connectionSource.getConnection()) {
             try (PreparedStatement preparedStatement = connection.prepareStatement(statement)) {

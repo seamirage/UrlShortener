@@ -12,6 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Expands shortened URL and redirects to this URL. <br/>
+ * Response: <br/>
+ * <ul>
+ *     <li>301, Location = "longUrl": when original URL was found</li>
+ *     <li>404: when URL was not found</li>
+ * </ul>
+ */
 @Singleton
 public class RedirectionServlet extends HttpServlet {
 

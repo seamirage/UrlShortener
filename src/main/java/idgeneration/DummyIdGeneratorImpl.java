@@ -2,6 +2,9 @@ package idgeneration;
 
 import java.util.Random;
 
+/**
+ * Dummy implementation of IdGenerator interface, based on random numbers generator.
+ */
 public class DummyIdGeneratorImpl implements IdGenerator {
     public DummyIdGeneratorImpl(long maxValue) {
         this.random = new Random();

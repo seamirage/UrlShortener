@@ -104,6 +104,12 @@
             <version>0.9.1.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>url-shortener</finalName>
@@ -134,6 +140,16 @@
                     <url>http://localhost:8080/manager</url>
                     <server>tomcat_local</server>
                     <path>/url-shortener</path>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.1</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
                 </configuration>
             </plugin>
 

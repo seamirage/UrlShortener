@@ -1,7 +1,16 @@
 package idgeneration;
 
+/**
+ * Implementation of LongIdToStringConverter, based on conversion from decimal numeral system to base-n numeral system.
+ * All identifiers will have fixed size.
+ */
 public class AlphabetBasedLongIdToStringConverterImpl implements LongIdToStringConverter {
-
+    /**
+     * @param alphabet symbols for new number representation. Count of symbols in alphabet will be used as a base of
+     *                 new numeral system.
+     * @param idSize required size of identifier. If after conversion obtained id which has length less than
+     *               required, it will be padded with the first symbol in alphabet to fit required size.
+     */
     public AlphabetBasedLongIdToStringConverterImpl(Alphabet alphabet, int idSize) {
         this.alphabet = alphabet;
         this.idSize = idSize;

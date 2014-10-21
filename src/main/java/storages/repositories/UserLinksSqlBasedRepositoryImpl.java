@@ -6,6 +6,9 @@ import storages.dto.UserLink;
 import storages.sql_commands.AddUserLinkSqlCommand;
 import storages.sql_queries.GetOriginalUriSqlQuery;
 
+/**
+ * Implementation of UserLinksRepository for SQL DBMS.
+ */
 public class UserLinksSqlBasedRepositoryImpl implements UserLinksRepository {
     public UserLinksSqlBasedRepositoryImpl(ConnectionSource connectionSource) {
         this.connectionSource = connectionSource;

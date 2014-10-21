@@ -19,8 +19,9 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-/*
-    Used sample code from: https://code.google.com/p/jopenid/source/browse/trunk/src/test/java/org/expressme/openid/MainServlet.java
+/**
+ * Authenticates user using Google.
+ * Used sample code from:<a href="https://code.google.com/p/jopenid/source/browse/trunk/src/test/java/org/expressme/openid/MainServlet.java">here</a>
  */
 @Singleton
 public class AuthenticationByGoogleServlet extends HttpServlet {
