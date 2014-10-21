@@ -28,7 +28,7 @@
 <script>
     $('button').on('click', function() {
         $.ajax({
-          url: API.SHORTEN + $('#longUrl').val()
+          url: API.SHORTEN + encodeURIComponent($('#longUrl').val())
         }).done(function(a1, isSuccess, response) {
           if(isSuccess === 'success') {
             $('#shortUrl').val(response.responseText);

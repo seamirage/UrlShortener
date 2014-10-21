@@ -14,7 +14,6 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Cookies.removeCookie("userId", request.getCookies(), response);
-        //TODO: redirect to login page
-        response.getOutputStream().print("<html><h2>Successfully logged out</h2></html>");
+        response.sendRedirect("");
     }
 }

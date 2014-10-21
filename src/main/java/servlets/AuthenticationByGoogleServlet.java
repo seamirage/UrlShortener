@@ -51,7 +51,7 @@ public class AuthenticationByGoogleServlet extends HttpServlet {
                 return;
             }
             putUserIdInCookies(request, response, user);
-            showAuthentication(response.getWriter(), identity);
+            redirectToMainPage(response);
         }
         else if ("Google".equals(op)) {
             Endpoint endpoint = manager.lookupEndpoint("Google");
@@ -64,6 +64,10 @@ public class AuthenticationByGoogleServlet extends HttpServlet {
         else {
             throw new ServletException("Bad parameter op=" + op);
         }
+    }
+
+    private void redirectToMainPage(HttpServletResponse response) throws IOException {
+        response.sendRedirect("");
     }
 
     private void putUserIdInCookies(HttpServletRequest request, HttpServletResponse response, UserInfo user) {
